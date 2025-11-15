@@ -1,0 +1,48 @@
+# ─── Laravel Framework ───────────────────────────────
+/vendor
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/bootstrap/ssr
+/bootstrap/cache/*
+!bootstrap/cache/.gitignore
+
+# ─── Storage Directories ─────────────────────────────
+/storage/*
+!storage/app
+!storage/app/public
+!storage/framework
+!storage/framework/cache
+!storage/framework/sessions
+!storage/framework/testing
+!storage/framework/views
+!storage/logs
+
+# ─── Environment Files ───────────────────────────────
+.env*
+!.env.example
+auth.json
+
+# ─── PHP / Testing / Build Caches ────────────────────
+/.phpunit.cache
+.phpunit.result.cache
+.phpactor.json
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+
+# ─── IDE / Editor / OS Specific Files ────────────────
+.vscode/
+.idea/
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+/fleet
+/.nova
+/.zed
+
+# ─── Project-Specific Files ──────────────────────────
+DeveloperNotes
