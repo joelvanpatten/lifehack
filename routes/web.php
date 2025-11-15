@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\FinnhubController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -15,6 +16,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    Route::get('/finntest', [TestController::class, 'test']);
+    Route::get('/bitcoin-price', [FinnhubController::class, 'getBitcoinPrice'])->name('bitcoin.price');
     Route::get('/notifications', function () {
         return Inertia::render('Notifications');
     })->name('notifications');

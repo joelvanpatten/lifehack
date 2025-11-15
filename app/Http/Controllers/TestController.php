@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TestController extends Controller
 {
     public function test()
     {
-        return redirect()->route('dashboard')
-            ->with('success', 'This is a success message!')
-            ->with('info', 'This is an info message!')
-            ->with('warning', 'This is a warning message!')
-            ->with('error', 'This is an error message!');
+        return Inertia::render('FinnTest');
+        // return redirect()->route('dashboard')
+        //     ->with('success', 'This is a success message!')
+        //     ->with('info', 'This is an info message!')
+        //     ->with('warning', 'This is a warning message!')
+        //     ->with('error', 'This is an error message!');
     }
 
     public function testSuccess()
