@@ -5,6 +5,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { Calendar, Clock, Truck, User, Leaf } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import BitcoinPrice from '@/components/BitcoinPrice.vue';
+import AlphaVantageQuote from '@/components/AlphaVantageQuote.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -127,6 +128,9 @@ onMounted(() => {
 
             <!-- Bitcoin Price -->
             <BitcoinPrice />
+
+            <!-- AlphaVantage Quote -->
+            <AlphaVantageQuote />
 
             <!-- Quick Stats -->
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">

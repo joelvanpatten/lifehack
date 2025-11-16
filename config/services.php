@@ -39,4 +39,8 @@ return [
         'api_key' => env('FINNHUB_API_KEY'),
     ],
 
+    'alphavantage' => [
+        'api_key' => env('ALPHAVANTAGE_API_KEY'),
+    ],
+
 ];

@@ -2,15 +2,21 @@
 
 namespace App\Services\Quotes;
 
+use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;
 
 class QuoteService
 {
-    protected QuoteProviderInterface $defaultProvider;
+    protected Application $app;
+    protected array $providers = [
+        'finnhub' => FinnhubQuoteProvider::class,
+        'alphavantage' => AlphaVantageQuoteProvider::class,
+        // Add other providers here
+    ];
 
-    public function __construct(QuoteProviderInterface $defaultProvider)
+    public function __construct(Application $app)
     {
-        $this->defaultProvider = $defaultProvider;
+        $this->app = $app;
     }
 
     /**
@@ -22,11 +28,24 @@ class QuoteService
      */
     public function getQuote(string $symbol, ?string $providerName = null): ?float
     {
-        // For now, we only have one provider, so we'll use the default.
-        // In the future, you could add logic here to select different providers
-        // based on the symbol prefix (e.g., "BINANCE:" for Finnhub, "YAHOO:" for another provider)
-        // or based on the $providerName parameter.
+        $provider = $this->resolveProvider($providerName);
 
-        return $this->defaultProvider->getQuote($symbol);
+        return $provider->getQuote($symbol);
+    }
+
+    protected function resolveProvider(?string $providerName): QuoteProviderInterface
+    {
+        if ($providerName === null) {
+            // Default to Finnhub if no provider is specified
+            $providerName = 'finnhub';
+        }
+
+        if (!isset($this->providers[$providerName])) {
+            throw new InvalidArgumentException("Quote provider '{$providerName}' not found.");
+        }
+
+        $providerClass = $this->providers[$providerName];
+
+        return $this->app->make($providerClass);
     }
 }

@@ -14,9 +14,9 @@ class QuoteController extends Controller
         $this->quoteService = $quoteService;
     }
 
-    public function getQuote(Request $request, string $symbol)
+    public function getQuote(Request $request, string $provider, string $symbol)
     {
-        $price = $this->quoteService->getQuote($symbol);
+        $price = $this->quoteService->getQuote($symbol, $provider);
 
         if ($price !== null) {
             return response()->json(['price' => $price]);

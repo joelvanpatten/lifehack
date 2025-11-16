@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('/finntest', [TestController::class, 'test']);
-    Route::get('/quote/{symbol}', [QuoteController::class, 'getQuote'])->name('quote.get');
+    Route::get('/quote/{provider}/{symbol}', [QuoteController::class, 'getQuote'])->name('quote.get');
     Route::get('/notifications', function () {
         return Inertia::render('Notifications');
     })->name('notifications');
