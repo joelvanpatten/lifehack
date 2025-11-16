@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="p-4 bg-white rounded-lg shadow-md">
+    <div class="p-4 rounded-lg shadow-md">
         <h3 class="text-lg font-semibold mb-2">Stock Price (AlphaVantage)</h3>
         <div class="flex items-center space-x-2 mb-2">
             <label for="stockSymbol" class="sr-only">Stock Symbol</label>

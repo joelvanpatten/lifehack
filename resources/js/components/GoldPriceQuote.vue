@@ -1,34 +1,36 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-const bitcoinPrice = ref(null);
+const goldPrice = ref(null);
 const error = ref(null);
 
-const fetchBitcoinPrice = async () => {
+const fetchGoldPrice = async () => {
     try {
-        const response = await fetch(route('quote.get', { provider: 'finnhub', symbol: 'BINANCE:BTCUSDT' }));
+        const response = await fetch(route('quote.get', { provider: 'goldapi', symbol: 'XAU' }));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        bitcoinPrice.value = data.price;
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        goldPrice.value = data.price;
     } catch (e) {
         error.value = e.message;
-        console.error("Failed to fetch Bitcoin price:", e);
+        console.error("Failed to fetch Gold price from GoldAPI.io:", e);
     }
 };
 
 onMounted(() => {
-    fetchBitcoinPrice();
-    // setInterval(fetchBitcoinPrice, 60000); // Refresh every 60 seconds
+    fetchGoldPrice();
 });
 </script>
 
 <template>
     <div class="p-4 rounded-lg shadow-md">
-        <h3 class="text-lg font-semibold mb-2">Bitcoin Price (BTC/USDT)</h3>
-        <div v-if="bitcoinPrice" class="text-2xl font-bold text-green-700 dark:text-green-400">
-            ${{ bitcoinPrice.toFixed(2) }}
+        <h3 class="text-lg font-semibold mb-2">Gold Spot Price (XAU/USD)</h3>
+        <div v-if="goldPrice" class="text-2xl font-bold text-green-700 dark:text-green-400">
+            ${{ goldPrice.toFixed(2) }}
         </div>
         <div v-else-if="error" class="text-red-500">
             Error: {{ error }}

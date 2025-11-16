@@ -11,6 +11,8 @@ class QuoteService
     protected array $providers = [
         'finnhub' => FinnhubQuoteProvider::class,
         'alphavantage' => AlphaVantageQuoteProvider::class,
+        'fmp' => FmpQuoteProvider::class,
+        'goldapi' => GoldApiQuoteProvider::class,
         // Add other providers here
     ];
 

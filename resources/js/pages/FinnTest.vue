@@ -5,7 +5,9 @@ import { Head, Link } from '@inertiajs/vue3';
 import { Calendar, Clock, Truck, User, Leaf } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import BitcoinPrice from '@/components/BitcoinPrice.vue';
-import AlphaVantageQuote from '@/components/AlphaVantageQuote.vue';
+// import AlphaVantageQuote from '@/components/AlphaVantageQuote.vue';
+import FmpSp500Quote from '@/components/FmpSp500Quote.vue';
+import GoldPriceQuote from '@/components/GoldPriceQuote.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -80,34 +82,34 @@ const formatDeliveryTime = (startTime: string | Date, endTime: string | Date): s
 };
 
 // Fetch delivery subscription data
-const fetchDeliveryData = async () => {
-    try {
-        const response = await axios.get('/api/calendar');
-        if (response.data.subscription) {
-            const sub = response.data.subscription;
-            console.log('Raw subscription data in Dashboard:', sub);
-            deliveryDay.value = sub.delivery_day;
-            deliveryTime.value = formatDeliveryTime(sub.delivery_start_time, sub.delivery_end_time);
+// const fetchDeliveryData = async () => {
+//     try {
+//         const response = await axios.get('/api/calendar');
+//         if (response.data.subscription) {
+//             const sub = response.data.subscription;
+//             console.log('Raw subscription data in Dashboard:', sub);
+//             deliveryDay.value = sub.delivery_day;
+//             deliveryTime.value = formatDeliveryTime(sub.delivery_start_time, sub.delivery_end_time);
             
-            // Calculate next delivery date
-            const today = new Date();
-            const daysUntilNext = (7 + sub.delivery_day.charCodeAt(0) - today.getDay()) % 7;
-            const nextDelivery = new Date(today);
-            nextDelivery.setDate(today.getDate() + daysUntilNext);
-            nextDeliveryDate.value = nextDelivery.toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
-            });
-        }
-    } catch (error) {
-        console.error('Error fetching delivery data:', error);
-    }
-};
+//             // Calculate next delivery date
+//             const today = new Date();
+//             const daysUntilNext = (7 + sub.delivery_day.charCodeAt(0) - today.getDay()) % 7;
+//             const nextDelivery = new Date(today);
+//             nextDelivery.setDate(today.getDate() + daysUntilNext);
+//             nextDeliveryDate.value = nextDelivery.toLocaleDateString('en-US', {
+//                 month: 'long',
+//                 day: 'numeric',
+//                 year: 'numeric'
+//             });
+//         }
+//     } catch (error) {
+//         console.error('Error fetching delivery data:', error);
+//     }
+// };
 
 // Load data on mount
 onMounted(() => {
-    fetchDeliveryData();
+    // fetchDeliveryData();
 });
 </script>
 
@@ -130,18 +132,24 @@ onMounted(() => {
             <BitcoinPrice />
 
             <!-- AlphaVantage Quote -->
-            <AlphaVantageQuote />
+            <!-- <AlphaVantageQuote /> -->
+
+            <!-- FMP S&P 500 Quote -->
+            <FmpSp500Quote />
+
+            <!-- Gold Price Quote -->
+            <GoldPriceQuote />
 
             <!-- Quick Stats -->
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
                 <Card>
                     <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle class="text-sm font-medium">Next Delivery</CardTitle>
+                        <CardTitle class="text-sm font-medium">Lorem Ipsum</CardTitle>
                         <Calendar class="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">{{ deliveryDay }}</div>
-                        <p class="text-xs text-muted-foreground">{{ nextDeliveryDate }}</p>
+                        <div class="text-2xl font-bold">Big Bold Thing</div>
+                        <p class="text-xs text-muted-foreground">Yer muthas remix is whack yo!</p>
                     </CardContent>
                 </Card>
                 

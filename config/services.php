@@ -43,4 +43,12 @@ return [
         'api_key' => env('ALPHAVANTAGE_API_KEY'),
     ],
 
+    'fmp' => [
+        'api_key' => env('FMP_API_KEY'),
+    ],
+
+    'goldapi' => [
+        'api_key' => env('GOLDAPI_API_KEY'),
+    ],
+
 ];

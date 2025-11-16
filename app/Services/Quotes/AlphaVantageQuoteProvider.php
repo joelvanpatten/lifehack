@@ -48,6 +48,10 @@ class AlphaVantageQuoteProvider implements QuoteProviderInterface
                 Log::error("AlphaVantageQuoteProvider: API Error for {$symbol}. Message: {$response['Error Message']}");
                 return null;
             }
+            if (isset($response['Information']) && str_contains($response['Information'], "API rate limit")) {
+                Log::error("AlphaVantageQuoteProvider: API Error - RATE LIMIT EXCEEDED {$response['Information']}");
+                return null;
+            }
 
             if (isset($response['Realtime Currency Exchange Rate'])) {
                 return (float) $response['Realtime Currency Exchange Rate']['5. Exchange Rate'];
