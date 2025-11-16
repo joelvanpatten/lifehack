@@ -1,24 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services\Quotes;
 
-use Illuminate\Http\Request;
 use Finnhub\Api\DefaultApi;
 use Finnhub\Configuration;
 use Finnhub\Model\Quote;
+use Illuminate\Support\Facades\Log;
 
-class FinnhubController extends Controller
+class FinnhubQuoteProvider implements QuoteProviderInterface
 {
-    public function getBitcoinPrice()
+    protected DefaultApi $client;
+
+    public function __construct()
     {
         $config = Configuration::getDefaultConfiguration()->setApiKey('token', config('services.finnhub.api_key'));
-        $client = new DefaultApi(
+        $this->client = new DefaultApi(
             new \GuzzleHttp\Client(),
             $config
         );
+    }
 
+    public function getQuote(string $symbol): ?float
+    {
         try {
-            $quote = $client->quote("BINANCE:BTCUSDT");
+            $quote = $this->client->quote($symbol);
 
             $price = null;
             if ($quote instanceof Quote) {
@@ -27,13 +32,10 @@ class FinnhubController extends Controller
                 $price = $quote['c'];
             }
 
-            if ($price !== null) {
-                return response()->json(['price' => $price]);
-            } else {
-                return response()->json(['error' => 'Could not retrieve Bitcoin price or unexpected response format.'], 500);
-            }
+            return $price;
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            Log::error("FinnhubQuoteProvider: Failed to fetch quote for {$symbol}. Error: {$e->getMessage()}");
+            return null;
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Quotes\FinnhubQuoteProvider;
+use App\Services\Quotes\QuoteProviderInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(QuoteProviderInterface::class, FinnhubQuoteProvider::class);
     }
 
     /**

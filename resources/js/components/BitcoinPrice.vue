@@ -6,7 +6,7 @@ const error = ref(null);
 
 const fetchBitcoinPrice = async () => {
     try {
-        const response = await fetch(route('bitcoin.price'));
+        const response = await fetch(route('quote.get', { symbol: 'BINANCE:BTCUSDT' }));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
