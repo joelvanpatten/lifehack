@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\QuoteRatio;
 
 class TestController extends Controller
 {
     public function test()
     {
-        return Inertia::render('FinnTest');
+        $latestRatios = QuoteRatio::latest()->first();
+
+        return Inertia::render('FinnTest', [
+            'ratios' => $latestRatios,
+        ]);
         // return redirect()->route('dashboard')
         //     ->with('success', 'This is a success message!')
         //     ->with('info', 'This is an info message!')

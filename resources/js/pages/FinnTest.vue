@@ -9,9 +9,16 @@ import BitcoinPrice from '@/components/Quotes/BitcoinPrice.vue';
 import FmpSp500Quote from '@/components/Quotes/FmpSp500Quote.vue';
 import GoldPriceQuote from '@/components/Quotes/GoldPriceQuote.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 import axios from 'axios';
 import { useFlashMessages } from '@/composables/useFlashMessages';
+
+const props = defineProps({
+    ratios: {
+        type: Object,
+        default: () => ({}),
+    },
+});
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -139,6 +146,42 @@ onMounted(() => {
 
             <!-- Gold Price Quote -->
             <GoldPriceQuote />
+
+            <!-- Quote Ratios -->
+            <div v-if="props.ratios" class="grid auto-rows-min gap-4 md:grid-cols-3">
+                <Card>
+                    <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle class="text-sm font-medium">BTC:XAU Ratio</CardTitle>
+                        <Leaf class="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div class="text-2xl font-bold">{{ props.ratios.btc_to_gold }}:1</div>
+                        <p class="text-xs text-muted-foreground">Bitcoin to Gold Ratio</p>
+                    </CardContent>
+                </Card>
+                
+                <Card>
+                    <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle class="text-sm font-medium">BTC:SP500 Ratio</CardTitle>
+                        <Leaf class="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div class="text-2xl font-bold">{{ props.ratios.btc_to_sp500 }}:1</div>
+                        <p class="text-xs text-muted-foreground">Bitcoin to S&P 500 Ratio</p>
+                    </CardContent>
+                </Card>
+                
+                <Card>
+                    <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle class="text-sm font-medium">XAU:SP500 Ratio</CardTitle>
+                        <Leaf class="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div class="text-2xl font-bold">{{ props.ratios.gold_to_sp500 }}:1</div>
+                        <p class="text-xs text-muted-foreground">Gold to S&P 500 Ratio</p>
+                    </CardContent>
+                </Card>
+            </div>
 
             <!-- Quick Stats -->
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
