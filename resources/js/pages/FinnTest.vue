@@ -4,16 +4,24 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { Calendar, Clock, Truck, User, Leaf } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
-import BitcoinPrice from '@/components/Quotes/BitcoinPrice.vue';
-// import AlphaVantageQuote from '@/components/Quotes/AlphaVantageQuote.vue';
-import FmpSp500Quote from '@/components/Quotes/FmpSp500Quote.vue';
-import GoldPriceQuote from '@/components/Quotes/GoldPriceQuote.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ref, onMounted, defineProps } from 'vue';
 import axios from 'axios';
 import { useFlashMessages } from '@/composables/useFlashMessages';
 
 const props = defineProps({
+    btcQuote: {
+        type: Object,
+        default: () => ({}),
+    },
+    xauQuote: {
+        type: Object,
+        default: () => ({}),
+    },
+    sp500Quote: {
+        type: Object,
+        default: () => ({}),
+    },
     ratios: {
         type: Object,
         default: () => ({}),
@@ -135,17 +143,41 @@ onMounted(() => {
                 </p>
             </div>
 
-            <!-- Bitcoin Price -->
-            <BitcoinPrice />
+            <!-- Individual Quotes -->
+            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
+                <Card>
+                    <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle class="text-sm font-medium">Bitcoin Price</CardTitle>
+                        <Leaf class="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div class="text-2xl font-bold">${{ props.btcQuote.price }}</div>
+                        <p class="text-xs text-muted-foreground">Latest Bitcoin Price</p>
+                    </CardContent>
+                </Card>
 
-            <!-- AlphaVantage Quote -->
-            <!-- <AlphaVantageQuote /> -->
+                <Card>
+                    <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle class="text-sm font-medium">Gold Price</CardTitle>
+                        <Leaf class="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div class="text-2xl font-bold">${{ props.xauQuote.price }}</div>
+                        <p class="text-xs text-muted-foreground">Latest Gold Price</p>
+                    </CardContent>
+                </Card>
 
-            <!-- FMP S&P 500 Quote -->
-            <FmpSp500Quote />
-
-            <!-- Gold Price Quote -->
-            <GoldPriceQuote />
+                <Card>
+                    <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle class="text-sm font-medium">S&P 500 Index</CardTitle>
+                        <Leaf class="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                        <div class="text-2xl font-bold">${{ props.sp500Quote.price }}</div>
+                        <p class="text-xs text-muted-foreground">Latest S&P 500 Index</p>
+                    </CardContent>
+                </Card>
+            </div>
 
             <!-- Quote Ratios -->
             <div v-if="props.ratios" class="grid auto-rows-min gap-4 md:grid-cols-3">

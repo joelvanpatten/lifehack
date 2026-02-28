@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\BtcQuote;
+use App\Models\XauQuote;
+use App\Models\Sp500Quote;
 use App\Models\QuoteRatio;
 
 class TestController extends Controller
 {
     public function test()
     {
+        $latestBtcQuote = BtcQuote::latest()->first();
+        $latestXauQuote = XauQuote::latest()->first();
+        $latestSp500Quote = Sp500Quote::latest()->first();
         $latestRatios = QuoteRatio::latest()->first();
 
         return Inertia::render('FinnTest', [
+            'btcQuote' => $latestBtcQuote,
+            'xauQuote' => $latestXauQuote,
+            'sp500Quote' => $latestSp500Quote,
             'ratios' => $latestRatios,
         ]);
         // return redirect()->route('dashboard')

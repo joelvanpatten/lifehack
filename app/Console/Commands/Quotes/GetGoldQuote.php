@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Quotes;
 
+use App\Models\XauQuote;
 use App\Services\Quotes\GoldApiQuoteProvider;
 use Illuminate\Console\Command;
 
@@ -26,7 +27,8 @@ class GetGoldQuote extends Command
      */
     public function handle(GoldApiQuoteProvider $goldApiQuoteProvider)
     {
-        $quote = $goldApiQuoteProvider->getQuote('XAU');
-        $this->info('Gold Price: $' . $quote);
+        $goldPrice = $goldApiQuoteProvider->getQuote('XAU');
+        XauQuote::create(['price' => $goldPrice]);
+        $this->info('Gold Price: $' . $goldPrice);
     }
 }

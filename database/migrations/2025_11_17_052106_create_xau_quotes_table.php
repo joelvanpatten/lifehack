@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quote_ratios', function (Blueprint $table) {
+        Schema::create('xau_quotes', function (Blueprint $table) {
             $table->id();
-            $table->decimal('btc_to_gold', 15, 2);
-            $table->decimal('btc_to_sp500', 15, 2);
-            $table->decimal('gold_to_sp500', 15, 2);
+            $table->decimal('price', 15, 2);
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('quote_ratios');
+        Schema::dropIfExists('xau_quotes');
     }
 };

@@ -5,6 +5,9 @@ namespace App\Console\Commands\Quotes;
 use App\Services\Quotes\FinnhubQuoteProvider;
 use App\Services\Quotes\GoldApiQuoteProvider;
 use App\Services\Quotes\FmpQuoteProvider;
+use App\Models\BtcQuote;
+use App\Models\XauQuote;
+use App\Models\Sp500Quote;
 use App\Models\QuoteRatio;
 use Illuminate\Console\Command;
 
@@ -43,8 +46,8 @@ class CalculateAndStoreRatios extends Command
         $this->info("S&P 500 Index: $" . $sp500Price);
 
         // Calculate Ratios
-        $btcToGoldRatio = $goldPrice > 0 ? round($bitcoinPrice / $goldPrice, 2) : 0;
-        $btcToSp500Ratio = $sp500Price > 0 ? round($bitcoinPrice / $sp500Price, 2) : 0;
+        $btcToGoldRatio   = $goldPrice > 0 ? round($bitcoinPrice / $goldPrice, 2) : 0;
+        $btcToSp500Ratio  = $sp500Price > 0 ? round($bitcoinPrice / $sp500Price, 2) : 0;
         $goldToSp500Ratio = $sp500Price > 0 ? round($goldPrice / $sp500Price, 2) : 0;
 
         $this->info("Ratios:");
@@ -52,11 +55,13 @@ class CalculateAndStoreRatios extends Command
         $this->info("BTC:SP500 = " . $btcToSp500Ratio . ":1");
         $this->info("XAU:SP500 = " . $goldToSp500Ratio . ":1");
 
+        // Store individual quotes to the database
+        BtcQuote::create(['price' => $bitcoinPrice]);
+        XauQuote::create(['price' => $goldPrice]);
+        Sp500Quote::create(['price' => $sp500Price]);
+
         // Store ratios to the database
         QuoteRatio::create([
-            'bitcoin_price' => $bitcoinPrice,
-            'gold_price' => $goldPrice,
-            'sp500_price' => $sp500Price,
             'btc_to_gold' => $btcToGoldRatio,
             'btc_to_sp500' => $btcToSp500Ratio,
             'gold_to_sp500' => $goldToSp500Ratio,

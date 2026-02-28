@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Quotes;
 
+use App\Models\Sp500Quote;
 use App\Services\Quotes\FmpQuoteProvider;
 use Illuminate\Console\Command;
 
@@ -26,7 +27,8 @@ class GetSp500Quote extends Command
      */
     public function handle(FmpQuoteProvider $fmpQuoteProvider)
     {
-        $quote = $fmpQuoteProvider->getQuote('^GSPC');
-        $this->info('S&P 500 Index: $' . $quote);
+        $sp500Price = $fmpQuoteProvider->getQuote('^GSPC');
+        Sp500Quote::create(['price' => $sp500Price]);
+        $this->info('S&P 500 Index: $' . $sp500Price);
     }
 }

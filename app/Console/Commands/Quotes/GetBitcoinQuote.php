@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Quotes;
 
+use App\Models\BtcQuote;
 use App\Services\Quotes\FinnhubQuoteProvider;
 use Illuminate\Console\Command;
 
@@ -26,7 +27,8 @@ class GetBitcoinQuote extends Command
      */
     public function handle(FinnhubQuoteProvider $finnhubQuoteProvider)
     {
-        $quote = $finnhubQuoteProvider->getQuote('BINANCE:BTCUSDT');
-        $this->info('Bitcoin Price: $' . $quote);
+        $bitcoinPrice = $finnhubQuoteProvider->getQuote('BINANCE:BTCUSDT');
+        BtcQuote::create(['price' => $bitcoinPrice]);
+        $this->info('Bitcoin Price: $' . $bitcoinPrice);
     }
 }
