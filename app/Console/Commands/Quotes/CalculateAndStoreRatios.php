@@ -56,7 +56,8 @@ class CalculateAndStoreRatios extends Command
         $this->info("XAU:SP500 = " . $goldToSp500Ratio . ":1");
 
         // Store individual quotes to the database
-        BtcQuote::create(['price' => $bitcoinPrice]);
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+        BtcQuote::create(['close' => $bitcoinPrice, 'quote_date' => $yesterday]);
         XauQuote::create(['price' => $goldPrice]);
         Sp500Quote::create(['price' => $sp500Price]);
 

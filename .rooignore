@@ -1,0 +1,83 @@
+# ────────────────────────────────────────────────
+# Sensitive / secret files (critical to exclude)
+# ────────────────────────────────────────────────
+.env
+.env.*
+*.key
+*.pem
+storage/*.key
+
+# ────────────────────────────────────────────────
+# Large vendor / dependency folders
+# ────────────────────────────────────────────────
+vendor/
+node_modules/
+bower_components/
+
+# ────────────────────────────────────────────────
+# Laravel generated / cache / logs / temporary files
+# ────────────────────────────────────────────────
+bootstrap/cache/
+storage/framework/
+storage/logs/
+storage/debugbar/
+public/
+tests/_output/                # if using Codeception
+
+# ────────────────────────────────────────────────
+# Frontend build artifacts (Vue / Vite / Webpack)
+# ────────────────────────────────────────────────
+dist/                         # sometimes used instead of build
+*.js.map
+*.css.map
+vite.config.js.timestamp-*
+
+# ────────────────────────────────────────────────
+# IDE / editor / OS junk
+# ────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ────────────────────────────────────────────────
+# Testing / coverage reports
+# ────────────────────────────────────────────────
+coverage/
+.phpunit.result.cache
+phpunit.xml.cache
+
+# ────────────────────────────────────────────────
+# Misc large or useless generated files
+# ────────────────────────────────────────────────
+composer.lock               # ← optional: exclude if you want leaner context (but many keep it)
+package-lock.json           # ← same reasoning
+yarn.lock
+pnpm-lock.yaml
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore Ignore noisy/large/irrelevant stuff by default
+.git/
+build/
+out/
+logs/
+cache/
+backup/
+*.bak
+*.log
+*.sql
+*.png
+*.jpg
+*.svg
+*.webp
+*.zip
+
+
+# Keep these
+# !.roo/
+

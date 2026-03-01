@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('btc_quotes', function (Blueprint $table) {
-            $table->id();
-            $table->decimal('price', 15, 2);
+            $table->id()->primary();
+            $table->decimal("open", 10)->nullable();
+            $table->decimal("high", 10)->nullable();
+            $table->decimal("low", 10)->nullable();
+            $table->decimal("close", 10);              // Close will set the "price".
+            $table->decimal("volume", 10)->nullable();
+            // $table->date("quote_date")->unique();
+            // $table->date('quote_date')->default('1999-12-31')->unique();
+            $table->date('quote_date')->nullable()->unique();
             $table->timestamps();
         });
     }

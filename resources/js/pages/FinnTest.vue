@@ -151,7 +151,7 @@ onMounted(() => {
                         <Leaf class="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">${{ props.btcQuote.price }}</div>
+                        <div class="text-2xl font-bold">${{ props.btcQuote?.close ?? '-' }}</div>
                         <p class="text-xs text-muted-foreground">Latest Bitcoin Price</p>
                     </CardContent>
                 </Card>
@@ -162,7 +162,7 @@ onMounted(() => {
                         <Leaf class="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">${{ props.xauQuote.price }}</div>
+                        <div class="text-2xl font-bold">${{ props.xauQuote?.price ?? '—' }}</div>
                         <p class="text-xs text-muted-foreground">Latest Gold Price</p>
                     </CardContent>
                 </Card>
@@ -173,7 +173,7 @@ onMounted(() => {
                         <Leaf class="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div class="text-2xl font-bold">${{ props.sp500Quote.price }}</div>
+                        <div class="text-2xl font-bold">${{ props.sp500Quote?.price ?? '—' }}</div>
                         <p class="text-xs text-muted-foreground">Latest S&P 500 Index</p>
                     </CardContent>
                 </Card>

@@ -27,9 +27,11 @@ class FinnhubQuoteProvider implements QuoteProviderInterface
 
             $price = null;
             if ($quote instanceof Quote) {
-                $price = $quote->getC();
+                // $price = $quote->getC();// current price 
+                $price = $quote->getPc();  // price at yesterdays close.
             } elseif (is_array($quote) && isset($quote['c'])) {
-                $price = $quote['c'];
+                // $price = $quote['c']; // current price 
+                $price = $quote['pc']; // price at yesterdays close.
             }
 
             return $price;
