@@ -1,6 +1,6 @@
 
-# NOTIFISH
-#### Joel Van Patten  -  July 2025
+# Lifehack
+#### Joel Van Patten  -  March 2026
 
 ---
 #### NOTICE: (Demo App - For Education / Illustration Only)
@@ -27,7 +27,7 @@ responsibly.
 + Pest / PhpUnit
 ---
 
-## Notifish
+## LifeHack
 ### Real‑Time Notifications with Laravel, Redis Queues & Vue 3
 
 ---

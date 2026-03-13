@@ -9,5 +9,12 @@ class BtcQuote extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['price'];
+    protected $fillable = [
+        'open',
+        'high',
+        'low',
+        'close',
+        'volume',
+        'quote_date',
+    ];
 }

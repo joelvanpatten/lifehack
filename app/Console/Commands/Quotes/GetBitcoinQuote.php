@@ -28,7 +28,14 @@ class GetBitcoinQuote extends Command
     public function handle(FinnhubQuoteProvider $finnhubQuoteProvider)
     {
         $bitcoinPrice = $finnhubQuoteProvider->getQuote('BINANCE:BTCUSDT');
-        BtcQuote::create(['price' => $bitcoinPrice]);
+
+        // Although we may have open, high, low, and close, the close is the daily "price".
+        //  If using Finnhub, it will give us the previous close (meaning yesterdays close price).
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+        BtcQuote::create([
+            'close'      => $bitcoinPrice,
+            'quote_date' => $yesterday
+        ]);
         $this->info('Bitcoin Price: $' . $bitcoinPrice);
     }
 }
