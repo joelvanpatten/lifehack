@@ -27,8 +27,20 @@ class GetSp500Quote extends Command
      */
     public function handle(FmpQuoteProvider $fmpQuoteProvider)
     {
-        $sp500Price = $fmpQuoteProvider->getQuote('^GSPC');
-        Sp500Quote::create(['price' => $sp500Price]);
-        $this->info('S&P 500 Index: $' . $sp500Price);
+        $quoteData = $fmpQuoteProvider->getQuoteData('^GSPC');
+
+        if ($quoteData) {
+            Sp500Quote::create([
+                'open' => $quoteData['open'] ?? 0,
+                'high' => $quoteData['high'] ?? 0,
+                'low' => $quoteData['low'] ?? 0,
+                'close' => $quoteData['price'] ?? 0,
+                'volume' => $quoteData['volume'] ?? 0,
+                'quote_date' => now()->toDateString(),
+            ]);
+            $this->info('S&P 500 Index: Open $' . $quoteData['open'] . ', High $' . $quoteData['high'] . ', Low $' . $quoteData['low'] . ', Close $' . $quoteData['price'] . ', Volume ' . $quoteData['volume']);
+        } else {
+            $this->error('Failed to retrieve S&P 500 quote.');
+        }
     }
 }

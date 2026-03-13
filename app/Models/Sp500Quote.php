@@ -11,5 +11,5 @@ class Sp500Quote extends Model
 
     protected $table = 'sp500_quotes';
 
-    protected $fillable = ['price'];
+    protected $fillable = ['open', 'high', 'low', 'close', 'volume', 'quote_date'];
 }
